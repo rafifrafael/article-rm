@@ -137,9 +137,11 @@ export default {
 
         filterArticles() {
             if (!this.searchQuery.trim()) {
-                this.filteredArticles = this.articles; // if no search term, display all articles
+                // Exclude the latestArticle when no search term
+                this.filteredArticles = this.articles.filter(article => article.id !== this.latestArticle.id);
                 return;
             }
+
             this.filteredArticles = this.articles.filter(article => {
                 return article.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                     article.content.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -158,10 +160,14 @@ export default {
         axios.get('http://localhost:8080/article')
             .then(response => {
                 if (response.data && response.data.length > 0) {
-                    // Sort articles by ID in descending order and pick the first one
+                    // Sort articles by ID in descending order
                     this.articles = response.data.sort((a, b) => b.id - a.id);
-                    this.filteredArticles = this.articles;
+
+                    // Set the latestArticle to the first article in this sorted list
                     this.latestArticle = this.articles[0];
+
+                    // Filter out the latestArticle from the list
+                    this.filteredArticles = this.articles.filter(article => article.id !== this.latestArticle.id);
 
                     axios.get(`http://localhost:8080/article/${this.latestArticle.id}`)
                         .then(res => {
@@ -184,6 +190,7 @@ export default {
                 console.error("There was an error fetching the data", error);
             });
     }
+
 }
 </script>
 
