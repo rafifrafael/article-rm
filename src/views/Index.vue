@@ -69,6 +69,7 @@ import axios from 'axios';
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import { RouterLink } from 'vue-router';
+import config from '../config/config';
 
 export default {
     components: {
@@ -157,7 +158,7 @@ export default {
         },
     },
     created() {
-        axios.get('http://localhost:8080/article')
+        axios.get(`${config.API_BASE_URL}/article`)
             .then(response => {
                 if (response.data && response.data.length > 0) {
                     // Sort articles by ID in descending order
@@ -169,13 +170,13 @@ export default {
                     // Filter out the latestArticle from the list
                     this.filteredArticles = this.articles.filter(article => article.id !== this.latestArticle.id);
 
-                    axios.get(`http://localhost:8080/article/${this.latestArticle.id}`)
+                    axios.get(`${config.API_BASE_URL}/article/${this.latestArticle.id}`)
                         .then(res => {
                             if (res.data) {
                                 this.latestArticle = res.data;
                             }
                         })
-                    axios.get(`http://localhost:8080/article/${this.articles.id}`)
+                    axios.get(`${config.API_BASE_URL}/article/${this.articles.id}`)
                         .then(res => {
                             if (res.data) {
                                 this.articles = res.data;

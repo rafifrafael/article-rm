@@ -71,8 +71,10 @@ import router from '@/router';
 import Dashnav from '../../components/Dashnav.vue';
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-import axios from 'axios';
 import Footer from '../../components/Footer.vue';
+import { API_BASE_URL } from '../config/config';
+axios.defaults.baseURL = API_BASE_URL;
+
 
 export default {
     components: {
