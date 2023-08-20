@@ -155,15 +155,13 @@ export default {
             alert: {
                 show: false,
                 message: '',
-                type: '' // default to success, can be changed to 'danger' or any other type
+                type: ''
             }
         };
     },
     watch: {
         $route(to, from) {
-            // Check for the success query param whenever the route changes
             if (to.query.success) {
-                // Check the type of action and set the alert message and type accordingly
                 if (to.query.type === 'add') {
                     this.alert.message = 'Article added successfully!';
                     this.alert.type = 'success';
@@ -173,7 +171,6 @@ export default {
                 }
                 this.alert.show = true;
 
-                // Optionally, hide the alert after some time
                 setTimeout(() => {
                     this.alert.show = false;
                 }, 3000);
@@ -187,14 +184,14 @@ export default {
             this.showAlert = true;
             setTimeout(() => {
                 this.showAlert = false;
-            }, 3000);  // Hide after 3 seconds
+            }, 3000);
         }
 
     },
     methods: {
         async fetchUserDetails() {
             try {
-                // Fetch user details first
+                // Fetch user details
                 let userResponse = await axios.get('http://localhost:8080/auth/user-details', {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token')
@@ -205,7 +202,7 @@ export default {
                 if (userResponse.data && userResponse.data.user) {
                     this.user = userResponse.data.user;
 
-                    // Now, fetch the article details for this user
+                    // fetch the article details for this user
                     let articleResponse = await axios.get(`http://localhost:8080/article/by/${this.user.id}`, {
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('user-token')
@@ -259,7 +256,6 @@ export default {
                 // Remove the deleted article from the allArticles array
                 this.allArticles = this.allArticles.filter(article => article.id !== articleId);
 
-                // Destroy and Reinitialize the DataTable
                 $('#myarticle').DataTable().destroy();
                 $('#myarticle').DataTable({
                     "order": [[0, "desc"]]
@@ -281,7 +277,7 @@ export default {
 
         showEditModal(article) {
             this.selectedArticle = JSON.parse(JSON.stringify(article));  // This clones the article
-            $('#editModal').modal('show');  // Use jQuery to show the modal
+            $('#editModal').modal('show');
         },
 
         handleFileUpload() {
@@ -310,12 +306,10 @@ export default {
                     }
                 });
 
-                // Add this after the axios call is successful:
                 this.alert.message = 'Article updated successfully!';
                 this.alert.type = 'success';
                 this.alert.show = true;
 
-                // Optionally, you can hide the alert after a few seconds
                 setTimeout(() => {
                     this.alert.show = false;
                 }, 3000);

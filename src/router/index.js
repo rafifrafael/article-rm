@@ -64,7 +64,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // If route requires auth, check if user is logged in
+    // check if user is logged in
     const loggedIn = await authService.isLoggedIn();
 
     if (!loggedIn) {
@@ -76,7 +76,7 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   } else {
-    next(); // Always call `next()` at the end
+    next();
   }
 });
 

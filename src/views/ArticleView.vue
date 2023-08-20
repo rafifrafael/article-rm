@@ -63,7 +63,7 @@
 </template>
   
 <script>
-import axios from 'axios';  // Import axios for HTTP requests.
+import axios from 'axios';
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import config from '../config/config';
@@ -85,10 +85,10 @@ export default {
     },
     methods: {
         async fetchArticle() {
-            const id = this.$route.params.id;  // Get the ID from the URL.
+            const id = this.$route.params.id;
             try {
                 const response = await axios.get(`http://localhost:8080/article/incv/${id}`);
-                this.article = response.data.data;  // Set the fetched data to the article property.
+                this.article = response.data.data;
             } catch (error) {
                 console.error("Error fetching the article:", error);
 
@@ -105,9 +105,9 @@ export default {
             }
         },
         estimatedReadTime(content) {
-            const wordsPerMinute = 200; // You can adjust this value as per your need
-            const wordCount = content.split(/\s+/).length;  // Counting words
-            const time = Math.ceil(wordCount / wordsPerMinute); // Rounding up to ensure at least 1 minute is shown
+            const wordsPerMinute = 200;
+            const wordCount = content.split(/\s+/).length;
+            const time = Math.ceil(wordCount / wordsPerMinute);
 
             return time <= 1 ? '1 Minute Read' : `${time} Minutes Read`;
         },
@@ -115,5 +115,6 @@ export default {
 }
 </script>
   
-<style>/* Your styles go here. */</style>
+<style>
+</style>
   

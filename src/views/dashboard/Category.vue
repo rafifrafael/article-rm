@@ -137,7 +137,7 @@ export default {
             alert: {
                 show: false,
                 message: '',
-                type: 'success' // 'success' for success alert, 'danger' for error alert
+                type: 'success'
             },
             newCategory: {
                 name: ''
@@ -157,7 +157,7 @@ export default {
                     let dataTableInstance = $('#category').DataTable();
 
                     if (dataTableInstance) {
-                        dataTableInstance.destroy(); // destroy the existing datatable instance
+                        dataTableInstance.destroy();
                     }
 
                     $('#category').DataTable(); // reinitialize datatable
@@ -183,12 +183,10 @@ export default {
                     }
                 });
 
-                // Set the alert to show the success message
                 this.alert.message = '<i class="bi bi-check-lg"></i> Category added successfully!';
                 this.alert.type = 'success';
                 this.alert.show = true;
 
-                // Optionally, hide the alert after a few seconds
                 setTimeout(() => {
                     this.alert.show = false;
                 }, 3000);
@@ -220,12 +218,10 @@ export default {
                     }
                 });
 
-                // Set the alert to show the success message
                 this.alert.message = '<i class="bi bi-check-lg"></i> Category updated successfully!';
                 this.alert.type = 'success';
                 this.alert.show = true;
 
-                // Optionally, hide the alert after a few seconds
                 setTimeout(() => {
                     this.alert.show = false;
                 }, 3000);
@@ -245,12 +241,10 @@ export default {
                     }
                 });
 
-                // Set the alert to show the success message
                 this.alert.message = '<i class="bi bi-x-lg"></i> Category deleted successfully!';
                 this.alert.type = 'danger';
                 this.alert.show = true;
 
-                // Optionally, hide the alert after a few seconds
                 setTimeout(() => {
                     this.alert.show = false;
                 }, 3000);
@@ -262,8 +256,6 @@ export default {
                 console.error("Failed to delete category:", error.message);
                 onsole.error("Error Response:", error.response);
 
-
-                // Show an error alert
                 this.alert.message = 'Failed to delete category!';
                 this.alert.type = 'danger';
                 this.alert.show = true;
@@ -275,14 +267,14 @@ export default {
         },
 
         showDeleteModal(categoryId) {
-            this.categoryToDelete = categoryId;  // Save the ID of the category to delete
-            $('#deleteCategoryModal').modal('show');  // Show the Bootstrap modal
+            this.categoryToDelete = categoryId; 
+            $('#deleteCategoryModal').modal('show');
         },
 
         async confirmDelete() {
-            await this.deleteCategory(this.categoryToDelete);  // Delete the category
-            this.categoryToDelete = null;  // Reset the ID after deletion
-            $('#deleteCategoryModal').modal('hide');  // Hide the Bootstrap modal
+            await this.deleteCategory(this.categoryToDelete);
+            this.categoryToDelete = null;
+            $('#deleteCategoryModal').modal('hide');
         },
     }
 }

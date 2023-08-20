@@ -13,7 +13,7 @@
                 <div class="card-group" v-for="article in articles" :key="article.id">
                     <div class="card flex-md-row mb-4 box-shadow h-md-250">
                         <div class="card-body d-flex flex-column align-items-start">
-                            <RouterLink :to="`category/${article.category_id}`"><strong class="d-inline-block mb-2 text-primary">{{ article.category_name }}</strong></RouterLink>
+                            <RouterLink :to="`/category/${article.category_id}`"><strong class="d-inline-block mb-2 text-primary">{{ article.category_name }}</strong></RouterLink>
                             <h3 class="mb-0">
                                 <RouterLink :to="`/view/${article.id}`" class="text-dark">{{ article.title }}</RouterLink>
                             </h3>
@@ -59,18 +59,18 @@ export default {
         },
         truncatedContent() {
             return function (article) {
-                if (article.content.length <= 100) { // or however many characters you want
+                if (article.content.length <= 100) {
                     return article.content;
                 }
-                return article.content.substring(0, 100) + '...';  // Display the first 100 characters followed by an ellipsis
+                return article.content.substring(0, 100) + '...';  // Display the first 100 characters
             }
         },
     },
     methods: {
         estimatedReadTime(content) {
-            const wordsPerMinute = 200; // You can adjust this value as per your need
-            const wordCount = content.split(/\s+/).length;  // Counting words
-            const time = Math.ceil(wordCount / wordsPerMinute); // Rounding up to ensure at least 1 minute is shown
+            const wordsPerMinute = 200;
+            const wordCount = content.split(/\s+/).length;
+            const time = Math.ceil(wordCount / wordsPerMinute);
 
             return time <= 1 ? '1 Minute Read' : `${time} Minutes Read`;
         },

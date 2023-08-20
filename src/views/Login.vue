@@ -112,9 +112,9 @@ export default {
         },
 
         handle401Error() {
-            alert("Wrong Credentials"); // Optional: Inform the user
-            localStorage.removeItem('user-token'); // Clear old token
-            location.reload(); // Reload the page
+            alert("Wrong Credentials");
+            localStorage.removeItem('user-token');
+            location.reload();
         },
     }
 }

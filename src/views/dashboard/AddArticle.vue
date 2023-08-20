@@ -105,7 +105,7 @@ export default {
         async fetchCategories() {
             try {
                 const response = await axios.get('http://localhost:8080/category');
-                console.log("Fetched categories:", response.data); // Add this
+                console.log("Fetched categories:", response.data);
                 this.categories = response.data;
             } catch (error) {
                 console.error("Failed to fetch categories:", error.message);
@@ -124,9 +124,9 @@ export default {
             this.article.image = this.$refs.fileInput.files[0];
         },
         async submitArticle() {
-            if (!this.article.content.trim()) { // Check if content is empty
+            if (!this.article.content.trim()) { // Check if content in quill is empty
                 this.quillValidationError = true;
-                return; // Exit the function early
+                return;
             } else {
                 this.quillValidationError = false; // Reset the validation error if the content exists
             }
@@ -142,16 +142,14 @@ export default {
             try {
                 const response = await axios.post('http://localhost:8080/article', formData);
 
-                if (response.data) { // Check the response for success (this is a basic check, refine as per your backend's response structure)
-                    // Set the alert to show a success message
+                if (response.data) {
                     window.scrollTo(0, 0);
                     this.alert.show = true;
                     this.alert.message = '<i class="bi bi-check-lg"></i> Article added successfully!';
 
-                    // Wait for 2 seconds before redirecting
                     setTimeout(() => {
                         this.$router.push('/myarticle');
-                    }, 2000); // 2000ms = 2 seconds
+                    }, 2000);
                 }
 
             } catch (error) {
@@ -174,7 +172,5 @@ export default {
 </script>
 
 <style>
-#page-content-wrapper {
-    padding-left: 30px;
-    /* Adjust this value as needed */
-}</style>
+
+</style>

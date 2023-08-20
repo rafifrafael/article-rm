@@ -55,7 +55,7 @@ export default {
   methods: {
     async fetchUserDetails() {
       try {
-        // Fetch user details first
+        // Fetch user details
         let userResponse = await axios.get('http://localhost:8080/auth/user-details', {
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('user-token')
@@ -66,7 +66,7 @@ export default {
         if (userResponse.data && userResponse.data.user) {
           this.user = userResponse.data.user;
 
-          // Now, fetch the article details for this user
+          // fetch the article details for this user
           let articleResponse = await axios.get(`http://localhost:8080/article/by/${this.user.id}`, {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('user-token')
