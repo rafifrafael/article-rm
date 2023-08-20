@@ -9,7 +9,8 @@
                         <div class="col-lg-12">
                             <h1>My Article</h1>
                             <div class="mt-3"></div>
-                            <div v-if="alert.show" :class="['alert', `alert-${alert.type}`]" role="alert" v-html="alert.message"></div>
+                            <div v-if="alert.show" :class="['alert', `alert-${alert.type}`]" role="alert"
+                                v-html="alert.message"></div>
                             <table id="myarticle" class="table" style="width:100%">
                                 <thead>
                                     <tr>
@@ -261,7 +262,7 @@ export default {
         },
         async deleteArticle(articleId) {
             try {
-                await axios.delete(`http://article-rm.free.nf/api/article/${articleId}`, {
+                await axios.post(`http://article-rm.free.nf/api/article/del/${articleId}`, {}, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token')
                     }

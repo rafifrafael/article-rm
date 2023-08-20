@@ -9,7 +9,8 @@
                         <div class="col-lg-12">
                             <h1>Category</h1>
                             <div class="mt-3"></div>
-                            <div v-if="alert.show" :class="['alert', `alert-${alert.type}`]" role="alert" v-html="alert.message"></div>
+                            <div v-if="alert.show" :class="['alert', `alert-${alert.type}`]" role="alert"
+                                v-html="alert.message"></div>
                             <button @click="showAddCategoryModal(category)" class="btn btn-primary mb-3">
                                 <i class="bi bi-plus-square"></i> Category
                             </button>
@@ -248,9 +249,11 @@ export default {
                 console.error("Failed to update category:", error.message);
             }
         },
+
         async deleteCategory(categoryId) {
             try {
-                await axios.delete(`http://article-rm.free.nf/api/category/${categoryId}`, {
+                let formData = new FormData();
+                await axios.post(`http://article-rm.free.nf/api/category/del/${categoryId}`, formData, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }
@@ -271,8 +274,7 @@ export default {
 
             } catch (error) {
                 console.error("Failed to delete category:", error.message);
-                onsole.error("Error Response:", error.response);
-                
+                console.error("Error Response:", error.response);
 
                 // Show an error alert
                 this.alert.message = 'Failed to delete category!';
@@ -284,6 +286,7 @@ export default {
                 }, 3000);
             }
         },
+
 
         showDeleteModal(categoryId) {
             this.categoryToDelete = categoryId;  // Save the ID of the category to delete
