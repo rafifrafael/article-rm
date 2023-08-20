@@ -13,7 +13,7 @@
                 <div class="card-group" v-for="article in articles" :key="article.id">
                     <div class="card flex-md-row mb-4 box-shadow h-md-250">
                         <div class="card-body d-flex flex-column align-items-start">
-                            <RouterLink :to="`category/${article.category_id}`"><strong class="d-inline-block mb-2 text-primary">{{ article.category_name }}</strong></RouterLink>
+                            <RouterLink :to="`/category/${article.category_id}`"><strong class="d-inline-block mb-2 text-primary">{{ article.category_name }}</strong></RouterLink>
                             <h3 class="mb-0">
                                 <RouterLink :to="`/view/${article.id}`" class="text-dark">{{ article.title }}</RouterLink>
                             </h3>
