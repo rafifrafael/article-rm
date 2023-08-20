@@ -95,6 +95,7 @@ export default {
                     this.loading = false;
                     if (response.data && response.data.token) {
                         localStorage.setItem('user-token', response.data.token);
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
                         this.$router.push('/dashboard');
                     } else {
                         this.error = response.data.message || 'Login failed';

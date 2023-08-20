@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item">{{ categoryName }}</li>
                     </ol>
                 </nav>
-                <div class="col-md-6" v-for="article in articles" :key="article.id">
+                <div class="card-group" v-for="article in articles" :key="article.id">
                     <div class="card flex-md-row mb-4 box-shadow h-md-250">
                         <div class="card-body d-flex flex-column align-items-start">
                             <RouterLink :to="`/category/${article.category_id}`"><strong class="d-inline-block mb-2 text-primary">{{ article.category_name }}</strong></RouterLink>
@@ -23,11 +23,9 @@
                                 <i class="bi bi-book"></i> {{ estimatedReadTime(article.content) }} &nbsp;&nbsp;&nbsp;
                                 <i class="bi bi-eye"></i> {{ article.views }}
                             </div>
-                            <RouterLink :to="`/view/${article.id}`" class="text-dark font-weight-bold">Read more
-                            </RouterLink>
+                            <RouterLink :to="`/view/${article.id}`" class="text-dark font-weight-bold">Read more</RouterLink>
                         </div>
-                        <img class="card-img-right flex-auto d-none d-md-block"
-                            :src="'http://localhost:8080/uploads/' + article.image" height="250" width="200">
+                        <img class="card-img-right flex-auto d-none d-md-block" :src="'http://localhost:8080/uploads/' + article.image" height="250" width="200">
                     </div>
                 </div>
             </div>
