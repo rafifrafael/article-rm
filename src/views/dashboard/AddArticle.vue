@@ -1,70 +1,63 @@
 <template>
     <div class="d-flex flex-column min-vh-100">
-        <Dashnav />
-        <div class="container">
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1>Add New Article </h1>
-                            <div v-if="alert.show" class="alert alert-success" role="alert" v-html="alert.message"></div>
-                            <form @submit.prevent="submitArticle" class="mb-5">
-                                <!-- Title input field -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input type="text" class="form-control" @input="generateSlug" id="title"
-                                        v-model="article.title" required>
-                                </div>
-
-                                <!-- Slug input field -->
-                                <div class="form-group">
-                                    <label for="slug">Slug</label>
-                                    <input type="text" class="form-control" id="slug" v-model="article.slug" disabled>
-                                </div>
-
-                                <!-- Category input field -->
-                                <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" v-model="article.category" required>
-                                            <option v-for="category in categories" :key="category.id" :value="category.id">
-                                                {{ category.name }}
-                                            </option>
-                                        </select>
-                                        <label class="input-group-text" for="inputGroupSelect02">Category</label>
-                                    </div>
-                                </div>
-
-                                <!-- author input field -->
-                                <div class="form-group">                                    
-                                    <input type="text" class="form-control" id="author" v-model="article.author_id" hidden>
-                                </div>
-
-                                <!-- Image input field -->
-                                <div class="form-group">
-                                    <label for="image">Article Thumbnail</label>
-                                    <input type="file" class="form-control" id="image" ref="fileInput"
-                                        @change="handleFileUpload" required>
-                                </div>
-
-                                <!-- QuillEditor for content -->
-                                <div class="form-group">
-                                    <label for="content">Content</label>
-                                    <QuillEditor theme="snow" class="form-control" v-model:content="article.content"
-                                        contentType="html" />
-                                    <div v-if="quillValidationError" class="text-danger">Content is required!</div>
-                                </div>
-
-                                <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary mt-3" :disabled="!article.author_id">Submit</button>
-                            </form>
+        <Dashnav>
+            <div class="container">
+                <div class="col-lg-12">
+                    <h1>Add New Article </h1>
+                    <div v-if="alert.show" class="alert alert-success" role="alert" v-html="alert.message"></div>
+                    <form @submit.prevent="submitArticle" class="mb-5">
+                        <!-- Title input field -->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" @input="generateSlug" id="title" v-model="article.title"
+                                required>
                         </div>
-                    </div>
+
+                        <!-- Slug input field -->
+                        <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" class="form-control" id="slug" v-model="article.slug" disabled>
+                        </div>
+
+                        <!-- Category input field -->
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <div class="input-group mb-3">
+                                <select class="form-select" v-model="article.category" required>
+                                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                                <label class="input-group-text" for="inputGroupSelect02">Category</label>
+                            </div>
+                        </div>
+
+                        <!-- author input field -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="author" v-model="article.author_id" hidden>
+                        </div>
+
+                        <!-- Image input field -->
+                        <div class="form-group">
+                            <label for="image">Article Thumbnail</label>
+                            <input type="file" class="form-control" id="image" ref="fileInput" @change="handleFileUpload"
+                                required>
+                        </div>
+
+                        <!-- QuillEditor for content -->
+                        <div class="form-group">
+                            <label for="content">Content</label>
+                            <QuillEditor theme="snow" class="form-control" v-model:content="article.content"
+                                contentType="html" />
+                            <div v-if="quillValidationError" class="text-danger">Content is required!</div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary mt-3" :disabled="!article.author_id">Submit</button>
+                    </form>
                 </div>
             </div>
-            <!-- /#page-content-wrapper -->
-        </div>
+        </Dashnav>
         <Footer />
     </div>
 </template>
@@ -112,7 +105,7 @@ export default {
         async fetchCategories() {
             try {
                 const response = await axios.get('http://article-rm.free.nf/api/category');
-                console.log("Fetched categories:", response.data); // Add this
+                console.log("Fetched categories:", response.data);
                 this.categories = response.data;
             } catch (error) {
                 console.error("Failed to fetch categories:", error.message);
@@ -131,9 +124,9 @@ export default {
             this.article.image = this.$refs.fileInput.files[0];
         },
         async submitArticle() {
-            if (!this.article.content.trim()) { // Check if content is empty
+            if (!this.article.content.trim()) { // Check if content in quill is empty
                 this.quillValidationError = true;
-                return; // Exit the function early
+                return;
             } else {
                 this.quillValidationError = false; // Reset the validation error if the content exists
             }
@@ -150,12 +143,10 @@ export default {
                 const response = await axios.post('http://article-rm.free.nf/api/article', formData);
 
                 if (response.data) { // Check the response for success
-                    // Set the alert to show a success message
                     window.scrollTo(0, 0);
                     this.alert.show = true;
                     this.alert.message = '<i class="bi bi-check-lg"></i> Article added successfully!';
 
-                    // Wait for 2 seconds before redirecting
                     setTimeout(() => {
                         this.$router.push('/myarticle');
                     }, 2000);
@@ -164,7 +155,6 @@ export default {
             } catch (error) {
                 console.error("Failed to submit:", error.message);
 
-                // Display error message on failure
                 this.alert.show = true;
                 this.alert.message = '<i class="bi bi-x-lg"></i> Failed to add article. Please try again!';
             }

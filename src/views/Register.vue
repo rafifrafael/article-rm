@@ -97,8 +97,8 @@ export default {
             })
                 .then(response => {
                     this.loading = false;
-                    this.successMessage = "Successfully registered! Redirecting to Login...";  // <-- Add this line
-                    setTimeout(() => {  // After 3 seconds, redirect to login page
+                    this.successMessage = "Successfully registered! Redirecting to Login...";
+                    setTimeout(() => {
                         this.$router.push('/login');
                     }, 1500);
                 })
@@ -113,5 +113,5 @@ export default {
 </script>
 
 <style scoped>
-/* Your styles here */
+
 </style>

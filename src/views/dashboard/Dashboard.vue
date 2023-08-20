@@ -1,45 +1,30 @@
 <template>
     <div class="d-flex flex-column min-vh-100">
-      <Dashnav />
-      <div class="container flex-grow-1">
-      <!-- Page Content -->
-      <div id="page-content-wrapper">
-              <div class="container-fluid">
-                  <div class="row">
-                      <div class="col-lg-12">
-                          <h1>Welcome, {{ user ? user.username : 'user' }}! </h1>
-                          <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-                            <div class="col">
-                              <div class="card text-bg-success mb-3">
-                                <div class="card-body">
-                                  <h5 class="card-title">Your Total Article</h5>
-                                  <p class="card-text">{{ totalArticles }}</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="card text-bg-info mb-3">
-                                <div class="card-body">
-                                  <h5 class="card-title">Your Latest Article</h5>
-                                  <p class="card-text">{{ latestArticle ? latestArticle.title : 'None' }}</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <div class="card text-bg-warning mb-3">
-                                <div class="card-body">
-                                  <h5 class="card-title">Manage Article</h5>
-                                  <p class="card-text"><RouterLink to="/manage">Manage</RouterLink></p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
+      <Dashnav>
+        <div class="container flex-grow-1">
+          <div class="col-lg-12">
+              <h1>Welcome, {{ user ? user.username : 'user' }}! </h1>
+              <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+                <div class="col">
+                  <div class="card text-bg-success mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Your Total Article</h5>
+                      <p class="card-text">{{ totalArticles }}</p>
+                    </div>
                   </div>
+                </div>
+                <div class="col">
+                  <div class="card text-bg-info mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Your Latest Article</h5>
+                      <p class="card-text">{{ latestArticle ? latestArticle.title : 'None' }}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
           </div>
-          <!-- /#page-content-wrapper -->
-      </div>
+        </div>
+      </Dashnav>
       <Footer />
     </div>
 </template>
@@ -70,7 +55,7 @@ export default {
     methods: {
       async fetchUserDetails() {
         try {
-            // Fetch user details first
+            // Fetch user details
             let userResponse = await axios.get('http://article-rm.free.nf/api/auth/user-details', {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('user-token')
@@ -81,7 +66,7 @@ export default {
             if (userResponse.data && userResponse.data.user) {
                 this.user = userResponse.data.user;
 
-                // Now, fetch the article details for this user
+                // article details for this user
                 let articleResponse = await axios.get(`http://article-rm.free.nf/api/article/by/${this.user.id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token')

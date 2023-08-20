@@ -29,13 +29,12 @@ export default {
     name: 'Navbar',
     data() {
         return {
-            // ... any other data properties ...
+            
         };
     },
     computed: {
         isLoggedIn() {
-            // Adjust this condition as necessary.
-            // This checks if 'user-token' exists in local storage.
+            // checks if 'user-token' exists in local storage.
             return !!localStorage.getItem('user-token');
         }
     },

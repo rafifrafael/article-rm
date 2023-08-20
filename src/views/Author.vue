@@ -59,10 +59,10 @@ export default {
         },
         truncatedContent() {
             return function (article) {
-                if (article.content.length <= 100) { // or however many characters you want
+                if (article.content.length <= 100) {
                     return article.content;
                 }
-                return article.content.substring(0, 100) + '...';  // Display the first 100 characters followed by an ellipsis
+                return article.content.substring(0, 100) + '...';  // Display the first 100 characters
             }
         },
     },
