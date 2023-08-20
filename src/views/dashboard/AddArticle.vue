@@ -13,15 +13,16 @@
                                 <!-- Title input field -->
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input type="text" class="form-control" @input="generateSlug" id="title" v-model="article.title" required>
+                                    <input type="text" class="form-control" @input="generateSlug" id="title"
+                                        v-model="article.title" required>
                                 </div>
-    
+
                                 <!-- Slug input field -->
                                 <div class="form-group">
                                     <label for="slug">Slug</label>
                                     <input type="text" class="form-control" id="slug" v-model="article.slug" disabled>
                                 </div>
-                                
+
                                 <!-- Category input field -->
                                 <div class="form-group">
                                     <label for="category">Category</label>
@@ -34,27 +35,29 @@
                                         <label class="input-group-text" for="inputGroupSelect02">Category</label>
                                     </div>
                                 </div>
-                                
+
                                 <!-- author input field -->
-                                <div class="form-group">
+                                <div class="form-group">                                    
                                     <input type="text" class="form-control" id="author" v-model="article.author_id" hidden>
                                 </div>
-    
+
                                 <!-- Image input field -->
                                 <div class="form-group">
                                     <label for="image">Article Thumbnail</label>
-                                    <input type="file" class="form-control" id="image" ref="fileInput" @change="handleFileUpload" required>
+                                    <input type="file" class="form-control" id="image" ref="fileInput"
+                                        @change="handleFileUpload" required>
                                 </div>
-    
+
                                 <!-- QuillEditor for content -->
                                 <div class="form-group">
                                     <label for="content">Content</label>
-                                    <QuillEditor theme="snow" class="form-control" v-model:content="article.content" contentType="html"/>
+                                    <QuillEditor theme="snow" class="form-control" v-model:content="article.content"
+                                        contentType="html" />
                                     <div v-if="quillValidationError" class="text-danger">Content is required!</div>
                                 </div>
-    
+
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-3" :disabled="!article.author_id">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -134,7 +137,7 @@ export default {
             } else {
                 this.quillValidationError = false; // Reset the validation error if the content exists
             }
-            
+
             const formData = new FormData();
             formData.append('author_id', this.article.author_id);
             formData.append('title', this.article.title);
@@ -142,11 +145,11 @@ export default {
             formData.append('image', this.article.image);
             formData.append('content', this.article.content);
             formData.append('category_id', this.article.category);
-            
+
             try {
                 const response = await axios.post('http://article-rm.free.nf/api/article', formData);
 
-                if (response.data) { // Check the response for success (this is a basic check, refine as per your backend's response structure)
+                if (response.data) { // Check the response for success
                     // Set the alert to show a success message
                     window.scrollTo(0, 0);
                     this.alert.show = true;
@@ -155,11 +158,15 @@ export default {
                     // Wait for 2 seconds before redirecting
                     setTimeout(() => {
                         this.$router.push('/myarticle');
-                    }, 2000); // 2000ms = 2 seconds
+                    }, 2000);
                 }
 
             } catch (error) {
                 console.error("Failed to submit:", error.message);
+
+                // Display error message on failure
+                this.alert.show = true;
+                this.alert.message = '<i class="bi bi-x-lg"></i> Failed to add article. Please try again!';
             }
         },
 
@@ -167,8 +174,8 @@ export default {
             function stringToSlug(str) {
                 return str
                     .toLowerCase()
-                    .replace(/[^\w ]+/g,'')
-                    .replace(/ +/g,'-');
+                    .replace(/[^\w ]+/g, '')
+                    .replace(/ +/g, '-');
             }
             this.article.slug = stringToSlug(this.article.title);
         }

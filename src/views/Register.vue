@@ -34,14 +34,14 @@
                                     <form>
 
                                         <div class="form-floating mb-3">
-                                            <input type="text" v-model="username" class="form-control" id="floatingInput"
+                                            <input type="text" v-model="username" class="form-control" id="floatingUsername"
                                                 placeholder="Username">
-                                            <label for="floatingInput">Username</label>
+                                            <label for="floatingUsername">Username</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="password" v-model="password" class="form-control"
-                                                id="floatingInput" placeholder="Username">
-                                            <label for="floatingInput">Password</label>
+                                                id="floatingPass" placeholder="Username">
+                                            <label for="floatingPass">Password</label>
                                         </div>
                                         <button type="button" @click="register" :disabled="loading"
                                             class="btn btn-primary w-100">
