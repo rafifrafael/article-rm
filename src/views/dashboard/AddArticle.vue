@@ -1,67 +1,63 @@
 <template>
     <div class="d-flex flex-column min-vh-100">
-        <Dashnav />
-        <div class="container">
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1>Add New Article </h1>
-                            <div v-if="alert.show" class="alert alert-success" role="alert" v-html="alert.message"></div>
-                            <form @submit.prevent="submitArticle" class="mb-5">
-                                <!-- Title input field -->
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input type="text" class="form-control" @input="generateSlug" id="title" v-model="article.title" required>
-                                </div>
-    
-                                <!-- Slug input field -->
-                                <div class="form-group">
-                                    <label for="slug">Slug</label>
-                                    <input type="text" class="form-control" id="slug" v-model="article.slug" disabled>
-                                </div>
-                                
-                                <!-- Category input field -->
-                                <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" v-model="article.category" required>
-                                            <option v-for="category in categories" :key="category.id" :value="category.id">
-                                                {{ category.name }}
-                                            </option>
-                                        </select>
-                                        <label class="input-group-text" for="inputGroupSelect02">Category</label>
-                                    </div>
-                                </div>
-                                
-                                <!-- author input field -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="author" v-model="article.author_id" hidden>
-                                </div>
-    
-                                <!-- Image input field -->
-                                <div class="form-group">
-                                    <label for="image">Article Thumbnail</label>
-                                    <input type="file" class="form-control" id="image" ref="fileInput" @change="handleFileUpload" required>
-                                </div>
-    
-                                <!-- QuillEditor for content -->
-                                <div class="form-group">
-                                    <label for="content">Content</label>
-                                    <QuillEditor theme="snow" class="form-control" v-model:content="article.content" contentType="html"/>
-                                    <div v-if="quillValidationError" class="text-danger">Content is required!</div>
-                                </div>
-    
-                                <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                            </form>
+        <Dashnav>
+            <div class="container flex-grow-1">
+                <div class="col-lg-12">
+                    <h1>Add New Article </h1>
+                    <div v-if="alert.show" class="alert alert-success" role="alert" v-html="alert.message"></div>
+                    <form @submit.prevent="submitArticle" class="mb-5">
+                        <!-- Title input field -->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" @input="generateSlug" id="title"
+                                v-model="article.title" required>
                         </div>
-                    </div>
+        
+                        <!-- Slug input field -->
+                        <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" class="form-control" id="slug" v-model="article.slug" disabled>
+                        </div>
+        
+                        <!-- Category input field -->
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <div class="input-group mb-3">
+                                <select class="form-select" v-model="article.category" required>
+                                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                                <label class="input-group-text" for="inputGroupSelect02">Category</label>
+                            </div>
+                        </div>
+        
+                        <!-- author input field -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="author" v-model="article.author_id" hidden>
+                        </div>
+        
+                        <!-- Image input field -->
+                        <div class="form-group">
+                            <label for="image">Article Thumbnail</label>
+                            <input type="file" class="form-control" id="image" ref="fileInput"
+                                @change="handleFileUpload" required>
+                        </div>
+        
+                        <!-- QuillEditor for content -->
+                        <div class="form-group">
+                            <label for="content">Content</label>
+                            <QuillEditor theme="snow" class="form-control" v-model:content="article.content"
+                                contentType="html" />
+                            <div v-if="quillValidationError" class="text-danger">Content is required!</div>
+                        </div>
+        
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
                 </div>
             </div>
-            <!-- /#page-content-wrapper -->
-        </div>
+        </Dashnav>
         <Footer />
     </div>
 </template>
@@ -134,7 +130,7 @@ export default {
             } else {
                 this.quillValidationError = false; // Reset the validation error if the content exists
             }
-            
+
             const formData = new FormData();
             formData.append('author_id', this.article.author_id);
             formData.append('title', this.article.title);
@@ -142,7 +138,7 @@ export default {
             formData.append('image', this.article.image);
             formData.append('content', this.article.content);
             formData.append('category_id', this.article.category);
-            
+
             try {
                 const response = await axios.post('http://localhost:8080/article', formData);
 
@@ -167,8 +163,8 @@ export default {
             function stringToSlug(str) {
                 return str
                     .toLowerCase()
-                    .replace(/[^\w ]+/g,'')
-                    .replace(/ +/g,'-');
+                    .replace(/[^\w ]+/g, '')
+                    .replace(/ +/g, '-');
             }
             this.article.slug = stringToSlug(this.article.title);
         }
@@ -176,3 +172,9 @@ export default {
 };
 
 </script>
+
+<style>
+#page-content-wrapper {
+    padding-left: 30px;
+    /* Adjust this value as needed */
+}</style>

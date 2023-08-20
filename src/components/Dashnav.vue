@@ -1,59 +1,75 @@
 <template>
-  <div :class="{'toggled': toggled}" id="wrapper">
+    <div :class="{ 'toggled': toggled }" id="wrapper">
 
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <RouterLink to="/">
-                    Article RM
-                </RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/dashboard"><i class="bi bi-speedometer"></i> Dashboard</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/myarticle"><i class="bi bi-journal"></i> My Article</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/add"><i class="bi bi-journal-plus"></i> Add New Article</RouterLink>
-            </li>
-            <li>
-                <RouterLink to="/categorydash"><i class="bi bi-tag"></i> Category</RouterLink>
-            </li>
-            <li>
-                <hr>
-            </li>
-            <li>
-              <a href="#" @click="logout"><i class="bi bi-box-arrow-in-left"></i> Logout</a>
-            </li>
-        </ul>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <RouterLink to="/">
+                        Article RM
+                    </RouterLink>
+                </li>
+                <li>
+                    <RouterLink to="/dashboard"><i class="bi bi-speedometer"></i> Dashboard</RouterLink>
+                </li>
+                <li>
+                    <RouterLink to="/myarticle"><i class="bi bi-journal"></i> My Article</RouterLink>
+                </li>
+                <li>
+                    <RouterLink to="/add"><i class="bi bi-journal-plus"></i> Add New Article</RouterLink>
+                </li>
+                <li>
+                    <RouterLink to="/categorydash"><i class="bi bi-tag"></i> Category</RouterLink>
+                </li>
+                <li>
+                    <hr>
+                </li>
+                <li>
+                    <a href="#" @click="logout"><i class="bi bi-box-arrow-in-left"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+        <a href="#" class="btn btn-default" @click="toggleMenu"><i class="bi bi-list"></i></a>
     </div>
-    <a href="#" class="btn btn-default" @click="toggleMenu"><i class="bi bi-list"></i></a>
-  </div>
-<!-- /#sidebar-wrapper -->
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div :class="{ 'toggled': toggled }" id="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <slot></slot>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      toggled: false
-    };
-  },
-  methods: {
-    toggleMenu() {
-      this.toggled = !this.toggled;
+    data() {
+        return {
+            toggled: false
+        };
     },
-    logout() {
-      localStorage.removeItem('user-token');
-      this.$router.push('/');
-    },
-  }
+    methods: {
+        toggleMenu() {
+            this.toggled = !this.toggled;
+        },
+        logout() {
+            localStorage.removeItem('user-token');
+            this.$router.push('/');
+        },
+    }
 }
 </script>
 
 <style scoped>
+body {
+    overflow-x: hidden;
+}
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -121,7 +137,7 @@ export default {
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-nav li a:active,
@@ -129,17 +145,17 @@ export default {
     text-decoration: none;
 }
 
-.sidebar-nav > .sidebar-brand {
+.sidebar-nav>.sidebar-brand {
     height: 65px;
     font-size: 18px;
     line-height: 60px;
 }
 
-.sidebar-nav > .sidebar-brand a {
+.sidebar-nav>.sidebar-brand a {
     color: #999999;
 }
 
-.sidebar-nav > .sidebar-brand a:hover {
+.sidebar-nav>.sidebar-brand a:hover {
     color: #fff;
     background: none;
 }
