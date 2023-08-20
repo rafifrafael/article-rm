@@ -67,6 +67,7 @@
 import axios from 'axios';
 import Navbar from '@/components/Navbar.vue';
 import Footer from '../components/Footer.vue';
+import config from '../config/config';
 
 export default {
     components: {
@@ -90,7 +91,7 @@ export default {
             }
             this.loading = true;
 
-            axios.post('http://localhost:8080/auth/register', {
+            axios.post('http://article-rm.free.nf/api/auth/register', {
                 username: this.username,
                 password: this.password,
             })

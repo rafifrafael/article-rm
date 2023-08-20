@@ -134,6 +134,7 @@
 import axios from 'axios';
 import Dashnav from '../../components/Dashnav.vue';
 import Footer from '../../components/Footer.vue';
+import config from '../../config/config';
 
 export default {
     components: {
@@ -160,7 +161,7 @@ export default {
     methods: {
         async fetchCategories() {
             try {
-                const response = await axios.get('http://localhost:8080/category/');
+                const response = await axios.get('http://article-rm.free.nf/api/category');
                 this.categories = response.data;
 
                 this.$nextTick(() => {
@@ -187,7 +188,7 @@ export default {
             formData.append('name', this.newCategory.name);
 
             try {
-                await axios.post('http://localhost:8080/category/', formData, {
+                await axios.post('http://article-rm.free.nf/api/category', formData, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }
@@ -224,7 +225,7 @@ export default {
             formData.append('name', this.category.name);
 
             try {
-                await axios.post(`http://localhost:8080/category/${this.category.id}`, formData, {
+                await axios.post(`http://article-rm.free.nf/api/category/${this.category.id}`, formData, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }
@@ -249,7 +250,7 @@ export default {
         },
         async deleteCategory(categoryId) {
             try {
-                await axios.delete(`http://localhost:8080/category/${categoryId}`, {
+                await axios.delete(`http://article-rm.free.nf/api/category/${categoryId}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }
@@ -270,6 +271,8 @@ export default {
 
             } catch (error) {
                 console.error("Failed to delete category:", error.message);
+                onsole.error("Error Response:", error.response);
+                
 
                 // Show an error alert
                 this.alert.message = 'Failed to delete category!';

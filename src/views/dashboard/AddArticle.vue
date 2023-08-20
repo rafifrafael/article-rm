@@ -68,10 +68,12 @@
 
 <script>
 import router from '@/router';
+import axios from 'axios';
 import Dashnav from '../../components/Dashnav.vue';
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import Footer from '../../components/Footer.vue';
+import config from '../../config/config';
 
 export default {
     components: {
@@ -106,7 +108,8 @@ export default {
     methods: {
         async fetchCategories() {
             try {
-                const response = await axios.get('http://localhost:8080/category/');
+                const response = await axios.get('http://article-rm.free.nf/api/category');
+                console.log("Fetched categories:", response.data); // Add this
                 this.categories = response.data;
             } catch (error) {
                 console.error("Failed to fetch categories:", error.message);
@@ -114,7 +117,7 @@ export default {
         },
         async fetchUserDetails() {
             try {
-                const response = await axios.get('http://localhost:8080/auth/user-details');
+                const response = await axios.get('http://article-rm.free.nf/api/auth/user-details');
                 this.user = response.data.user;
                 this.article.author_id = this.user.id;
             } catch (error) {
@@ -141,7 +144,7 @@ export default {
             formData.append('category_id', this.article.category);
             
             try {
-                const response = await axios.post('http://localhost:8080/article', formData);
+                const response = await axios.post('http://article-rm.free.nf/api/article', formData);
 
                 if (response.data) { // Check the response for success (this is a basic check, refine as per your backend's response structure)
                     // Set the alert to show a success message

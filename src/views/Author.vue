@@ -27,7 +27,7 @@
                             </RouterLink>
                         </div>
                         <img class="card-img-right flex-auto d-none d-md-block"
-                            :src="'http://localhost:8080/uploads/' + article.image" height="250" width="200">
+                            :src="'http://article-rm.free.nf/api/uploads/' + article.image" height="250" width="200">
                     </div>
                 </div>
             </div>
@@ -41,6 +41,7 @@ import axios from 'axios';
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import { RouterLink } from 'vue-router';
+import config from '../config/config';
 
 export default {
     components: {
@@ -79,7 +80,7 @@ export default {
     },
     created() {
         const authorId = this.$route.params.id;
-        axios.get(`http://localhost:8080/article/by/${authorId}`)
+        axios.get(`http://article-rm.free.nf/api/article/by/${authorId}`)
             .then(response => {
                 this.articles = response.data.all_article;
             })

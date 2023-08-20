@@ -49,6 +49,7 @@
 import Dashnav from '../../components/Dashnav.vue';
 import axios from 'axios';
 import Footer from '../../components/Footer.vue';
+import config from '../../config/config';
 
 
 export default {
@@ -70,7 +71,7 @@ export default {
       async fetchUserDetails() {
         try {
             // Fetch user details first
-            let userResponse = await axios.get('http://localhost:8080/auth/user-details', {
+            let userResponse = await axios.get('http://article-rm.free.nf/api/auth/user-details', {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('user-token')
                 }
@@ -81,7 +82,7 @@ export default {
                 this.user = userResponse.data.user;
 
                 // Now, fetch the article details for this user
-                let articleResponse = await axios.get(`http://localhost:8080/article/by/${this.user.id}`, {
+                let articleResponse = await axios.get(`http://article-rm.free.nf/api/article/by/${this.user.id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token')
                     }

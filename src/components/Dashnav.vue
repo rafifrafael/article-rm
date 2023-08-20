@@ -5,21 +5,21 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
+                <RouterLink to="/">
                     Article RM
-                </a>
+                </RouterLink>
             </li>
             <li>
-                <a href="/dashboard"><i class="bi bi-speedometer"></i> Dashboard</a>
+                <RouterLink to="/dashboard"><i class="bi bi-speedometer"></i> Dashboard</RouterLink>
             </li>
             <li>
-                <a href="/myarticle"><i class="bi bi-journal"></i> My Article</a>
+                <RouterLink to="/myarticle"><i class="bi bi-journal"></i> My Article</RouterLink>
             </li>
             <li>
-                <a href="/add"><i class="bi bi-journal-plus"></i> Add New Article</a>
+                <RouterLink to="/add"><i class="bi bi-journal-plus"></i> Add New Article</RouterLink>
             </li>
             <li>
-                <a href="/categorydash"><i class="bi bi-tag"></i> Category</a>
+                <RouterLink to="/categorydash"><i class="bi bi-tag"></i> Category</RouterLink>
             </li>
             <li>
                 <hr>
