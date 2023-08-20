@@ -7,7 +7,7 @@ export default {
       const token = localStorage.getItem('user-token');
       if (!token) return false;
 
-      const response = await axios.post('http://article-rm.free.nf/api/auth/verify-token', { token });
+      const response = await axios.post('http://localhost:8080/auth/verify-token', { token });
       return response.data.isValid;
     } catch (error) {
       if (error.response && error.response.status === 401) {
