@@ -161,7 +161,7 @@ export default {
     methods: {
         async fetchCategories() {
             try {
-                const response = await axios.get('http://article-rm.free.nf/api/category');
+                const response = await axios.get('http://localhost:8080/category');
                 this.categories = response.data;
 
                 this.$nextTick(() => {
@@ -188,7 +188,7 @@ export default {
             formData.append('name', this.newCategory.name);
 
             try {
-                await axios.post('http://article-rm.free.nf/api/category', formData, {
+                await axios.post('http://localhost:8080/category', formData, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }
@@ -225,7 +225,7 @@ export default {
             formData.append('name', this.category.name);
 
             try {
-                await axios.post(`http://article-rm.free.nf/api/category/${this.category.id}`, formData, {
+                await axios.post(`http://localhost:8080/category/${this.category.id}`, formData, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }
@@ -250,7 +250,7 @@ export default {
         },
         async deleteCategory(categoryId) {
             try {
-                await axios.delete(`http://article-rm.free.nf/api/category/${categoryId}`, {
+                await axios.delete(`http://localhost:8080/category/${categoryId}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                     }

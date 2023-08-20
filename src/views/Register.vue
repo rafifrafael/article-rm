@@ -91,7 +91,7 @@ export default {
             }
             this.loading = true;
 
-            axios.post('http://article-rm.free.nf/api/auth/register', {
+            axios.post('http://localhost:8080/auth/register', {
                 username: this.username,
                 password: this.password,
             })

@@ -206,7 +206,7 @@ export default {
         async fetchUserDetails() {
             try {
                 // Fetch user details first
-                let userResponse = await axios.get('http://article-rm.free.nf/api/auth/user-details', {
+                let userResponse = await axios.get('http://localhost:8080/auth/user-details', {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token')
                     }
@@ -217,7 +217,7 @@ export default {
                     this.user = userResponse.data.user;
 
                     // Now, fetch the article details for this user
-                    let articleResponse = await axios.get(`http://article-rm.free.nf/api/article/by/${this.user.id}`, {
+                    let articleResponse = await axios.get(`http://localhost:8080/article/by/${this.user.id}`, {
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('user-token')
                         }
@@ -241,7 +241,7 @@ export default {
         },
         async fetchCategories() {
             try {
-                const response = await axios.get('http://article-rm.free.nf/api/category/');
+                const response = await axios.get('http://localhost:8080/category/');
                 this.categories = response.data;
             } catch (error) {
                 console.error("Failed to fetch categories:", error.message);
@@ -261,7 +261,7 @@ export default {
         },
         async deleteArticle(articleId) {
             try {
-                await axios.delete(`http://article-rm.free.nf/api/article/${articleId}`, {
+                await axios.delete(`http://localhost:8080/article/${articleId}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token')
                     }
@@ -314,7 +314,7 @@ export default {
             }
 
             try {
-                await axios.post(`http://article-rm.free.nf/api/article/${this.selectedArticle.id}`, formData, {
+                await axios.post(`http://localhost:8080/article/${this.selectedArticle.id}`, formData, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
                         'Content-Type': 'multipart/form-data',

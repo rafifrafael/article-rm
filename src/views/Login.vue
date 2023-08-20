@@ -87,7 +87,7 @@ export default {
             }
             this.loading = true;
 
-            axios.post('http://article-rm.free.nf/api/auth/login', {
+            axios.post('http://localhost:8080/auth/login', {
                 username: this.username,
                 password: this.password,
             })

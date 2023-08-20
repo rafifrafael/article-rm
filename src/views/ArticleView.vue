@@ -28,7 +28,7 @@
                         </header>
                         <!-- Preview image figure-->
                         <figure class="mb-4"><img class="img-fluid rounded"
-                                :src="'http://article-rm.free.nf/api/uploads/' + article.image"
+                                :src="'http://localhost:8080/uploads/' + article.image"
                                 :style="{ width: '900px', height: '400px' }" alt="..." /></figure>
                         <!-- Post content-->
                         <section class="mb-5">
@@ -87,7 +87,7 @@ export default {
         async fetchArticle() {
             const id = this.$route.params.id;  // Get the ID from the URL.
             try {
-                const response = await axios.get(`http://article-rm.free.nf/api/article/incv/${id}`);
+                const response = await axios.get(`http://localhost:8080/article/incv/${id}`);
                 this.article = response.data.data;  // Set the fetched data to the article property.
             } catch (error) {
                 console.error("Error fetching the article:", error);
@@ -96,7 +96,7 @@ export default {
         },
         async fetchCategory() {
             try {
-                axios.get('http://article-rm.free.nf/api/category')
+                axios.get('http://localhost:8080/category')
                     .then(response => {
                         this.categories = response.data;
                     })

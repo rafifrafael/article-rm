@@ -108,7 +108,7 @@ export default {
     methods: {
         async fetchCategories() {
             try {
-                const response = await axios.get('http://article-rm.free.nf/api/category');
+                const response = await axios.get('http://localhost:8080/category');
                 console.log("Fetched categories:", response.data); // Add this
                 this.categories = response.data;
             } catch (error) {
@@ -117,7 +117,7 @@ export default {
         },
         async fetchUserDetails() {
             try {
-                const response = await axios.get('http://article-rm.free.nf/api/auth/user-details');
+                const response = await axios.get('http://localhost:8080/auth/user-details');
                 this.user = response.data.user;
                 this.article.author_id = this.user.id;
             } catch (error) {
@@ -144,7 +144,7 @@ export default {
             formData.append('category_id', this.article.category);
             
             try {
-                const response = await axios.post('http://article-rm.free.nf/api/article', formData);
+                const response = await axios.post('http://localhost:8080/article', formData);
 
                 if (response.data) { // Check the response for success (this is a basic check, refine as per your backend's response structure)
                     // Set the alert to show a success message

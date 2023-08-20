@@ -39,7 +39,7 @@
                             </RouterLink>
                         </div>
                         <img class="card-img-right flex-auto d-none d-md-block"
-                            :src="'http://article-rm.free.nf/api/uploads/' + article.image" height="250" width="200">
+                            :src="'http://localhost:8080/uploads/' + article.image" height="250" width="200">
                     </div>
                 </div>
             </div>
@@ -158,7 +158,7 @@ export default {
         },
     },
     created() {
-        axios.get('http://article-rm.free.nf/api/article')
+        axios.get('http://localhost:8080/article')
             .then(response => {
                 if (response.data && response.data.length > 0) {
                     // Sort articles by ID in descending order
@@ -170,13 +170,13 @@ export default {
                     // Filter out the latestArticle from the list
                     this.filteredArticles = this.articles.filter(article => article.id !== this.latestArticle.id);
 
-                    axios.get(`http://article-rm.free.nf/api/article/${this.latestArticle.id}`)
+                    axios.get(`http://localhost:8080/article/${this.latestArticle.id}`)
                         .then(res => {
                             if (res.data) {
                                 this.latestArticle = res.data;
                             }
                         })
-                    axios.get(`http://article-rm.free.nf/api/article/${this.articles.id}`)
+                    axios.get(`http://localhost:8080/article/${this.articles.id}`)
                         .then(res => {
                             if (res.data) {
                                 this.articles = res.data;
