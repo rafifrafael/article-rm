@@ -12,18 +12,27 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
+Clone the Repository:
+```sh
+git clone https://github.com/rafifrafael/article-rm.git
+```
+
+Navigate to the Project Directory:
+```sh
+cd article-rm
+```
+
+Install Dependencies:
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
+Compile and Hot-Reload for Development
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
-
+Compile and Minify for Production
 ```sh
 npm run build
 ```
